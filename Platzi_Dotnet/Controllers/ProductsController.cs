@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Platzi_Dotnet.Data;
 using Platzi_Dotnet.VIewModels;
 using Platzi_Dotnet.Models;
+using System.Net;
 
 namespace Platzi_Dotnet.Controllers
 {
@@ -30,6 +31,24 @@ namespace Platzi_Dotnet.Controllers
           var mappedProducts = _mapper.Map<IEnumerable<ProductViewModel>>(products);
            return mappedProducts != null  ? Ok(mappedProducts) : NotFound();  
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ProductViewModel>> GetProduct(int id)
+        {
+            if (_context.Product == null)
+            {
+                return NotFound();
+            }
+            var product = await _context.Product.FindAsync(id);
+
+            if (product == null)
+            {
+                throw new System.Web.Http.HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            return _mapper.Map<ProductViewModel>(product);
+        }
+        
 
     }
 }
