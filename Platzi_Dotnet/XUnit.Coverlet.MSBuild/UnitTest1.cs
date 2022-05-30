@@ -19,6 +19,11 @@ public class UnitTest1
         Assert.NotNull(nombres.Select(x=> x.ToString() == "Paulina"));
     }
 
+    [Fact]
+    public void TestBooleans()
+    {
+        Assert.True(numero%2!=0);
+    }
 
     #region funciones 
     public int ParseDoubleToInt(double numero)
