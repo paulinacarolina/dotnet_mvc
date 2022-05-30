@@ -48,7 +48,35 @@ namespace Platzi_Dotnet.Controllers
 
             return _mapper.Map<ProductViewModel>(product);
         }
-        
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutProduct(int id, ProductViewModel product)
+        {
+
+            if (!ProductExists(id))
+            {
+                return NotFound();
+            }
+
+            _context.Entry(_mapper.Map<Product>(product)).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+
+                throw new System.Web.Http.HttpResponseException(HttpStatusCode.InternalServerError);
+
+            }
+
+            return NoContent();
+        }
+
+        private bool ProductExists(int id)
+        {
+            return (_context.Product?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
     }
 }
