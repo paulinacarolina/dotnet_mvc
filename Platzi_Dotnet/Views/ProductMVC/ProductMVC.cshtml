@@ -1,0 +1,68 @@
+﻿@using Platzi_Dotnet.VIewModels
+@{
+  var ProductsLists = TempData["ProductList"] as List<ProductViewModel>;
+}
+<title>@ViewBag.Title</title>
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/css/Site.css")"  media="screen" />
+<script src="@Url.Content("~/js/site.js")"></script>
+<script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")"></script>
+
+
+<div class="tablebox">
+
+<h1>Productos</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Name
+            </th>
+            <th>
+               Price
+            </th>
+            <th>
+               Description
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+@for (var i =0; i<@ProductsLists.Count(); i++) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => @ProductsLists[i].Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => @ProductsLists[i].Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => @ProductsLists[i].Description)
+            </td>
+            <td>
+                 @Html.ActionLink(
+                    "Edit",
+                    "Edit",
+                    "ProductMVC",
+                    routeValues: new{
+                        id=@ProductsLists[i].Id
+                    }
+                ) | 
+                @Html.ActionLink(
+                    "Delete",
+                    "Delete",
+                    "ProductMVC",
+                    routeValues: new{
+                        id=@ProductsLists[i].Id
+                    }
+                )
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div class="create_button">
+    <button  asp-page="Create" class="button-29" role="button" >Nuevo Producto</button >
+</div>
+</div>
