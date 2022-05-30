@@ -1,0 +1,50 @@
+﻿@using Platzi_Dotnet.VIewModels
+
+@{
+    var Product = TempData["Product"] as ProductViewModel;
+    var result = new ProductViewModel();
+    result.Id = Product.Id;
+}
+<link rel="stylesheet" type="text/css" href="@Url.Content("~/css/Site.css")"  media="screen" />
+
+<div class="tablebox">
+
+<h1>Edit</h1>
+
+@using (Html.BeginForm("Edit", "ProductMVC", FormMethod.Post))
+{
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Name : <br> @Product.Name
+            </th>
+            <th>
+               Price : <br> @Product.Price
+            </th>
+            <th>
+               Description : <br> @Product.Description
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.TextBox("Name")
+            </td>
+            <td>
+                @Html.TextBox("Price")
+            </td>
+            <td>
+                @Html.TextBox("Description")
+            </td>            
+        </tr>
+    </tbody>
+    
+</table>
+     <input type="submit" value="Guardar Cambios" class="button-29" value="submit"/>
+     }
+    </div>
+
+
