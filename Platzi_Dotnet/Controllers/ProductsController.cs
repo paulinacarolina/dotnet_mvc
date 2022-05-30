@@ -74,6 +74,25 @@ namespace Platzi_Dotnet.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProduct(int id)
+        {
+            if (_context.Product == null)
+            {
+                throw new System.Web.Http.HttpResponseException(HttpStatusCode.NoContent);
+            }
+            var product = await _context.Product.FindAsync(id);
+            if (product == null)
+            {
+                throw new System.Web.Http.HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            _context.Product.Remove(product);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
         private bool ProductExists(int id)
         {
             return (_context.Product?.Any(e => e.Id == id)).GetValueOrDefault();
