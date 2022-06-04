@@ -28,8 +28,8 @@ namespace Platzi_Dotnet.Controllers
               return NotFound();
           }
            List<Product> products = await _context.Product.ToListAsync();
-          var mappedProducts = _mapper.Map<IEnumerable<ProductViewModel>>(products);
-           return mappedProducts != null  ? Ok(mappedProducts) : NotFound();  
+           var mappedProducts = _mapper.Map<IEnumerable<ProductViewModel>>(products);
+           return mappedProducts != null  ? Ok(mappedProducts) : BadRequest();  
         }
 
         [HttpGet("{id}")]
