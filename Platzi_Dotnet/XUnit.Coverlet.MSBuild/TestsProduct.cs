@@ -76,8 +76,8 @@ namespace Platzi_Dotnet.XUnit.Coverlet.MSBuild
 
             //Assert
             Assert.NotNull(result);
-            var response = Assert.IsType<OkObjectResult>(result.Result);
-            Assert.Equal(500, response.StatusCode);
+            var response = Assert.IsType<NotFoundResult>(result.Result);
+            Assert.Equal(404, response.StatusCode);
         }
 
         [Fact]
@@ -93,8 +93,9 @@ namespace Platzi_Dotnet.XUnit.Coverlet.MSBuild
 
             //Assert
             Assert.NotNull(result);
-            var response = Assert.IsType<OkObjectResult>(result.Result);
-            Assert.Equal(400, response.StatusCode);
+            var response = Assert.IsType<ConflictResult>(result.Result);
+            Assert.Equal(409, response.StatusCode);
+
         }
     }
 }

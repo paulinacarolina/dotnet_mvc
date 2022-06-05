@@ -25,11 +25,15 @@ namespace Platzi_Dotnet.Controllers
         {
           if (_context.Product == null)
           {
-              return NotFound();
+              return BadRequest();
           }
            List<Product> products = await _context.Product.ToListAsync();
+           if(products.Count == 0)
+            {
+                return NotFound();
+            }
            var mappedProducts = _mapper.Map<IEnumerable<ProductViewModel>>(products);
-           return mappedProducts != null  ? Ok(mappedProducts) : BadRequest();  
+           return mappedProducts.Count() != 0  ? Ok(mappedProducts) : Conflict();  
         }
 
         [HttpGet("{id}")]
